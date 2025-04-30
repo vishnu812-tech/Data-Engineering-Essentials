@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @vishnu Kalgi 
 - 👨‍💻 I’m passionate about data engineering and analytics, with strong skills in **Scala**, **Python**, **Pandas/Numpy**, and **Apache Spark**  
 - 📚 I’m currently expanding my expertise through hands-on projects with real world scenarios.  
-- 🚀 I use this GitHub to showcase my understanding of data transformations.
-- 🤝 I’m open to collaborating on data-driven projects and innovative problem-solving initiatives  
-- 📫 Reach me at: kvishnu812@gmail.com | www.linkedin.com/in/vishnu-kalgi-897051213
+- 🚀 I use this GitHub to showcase my understanding of programming languages and personal projects.
+- 🤝 I’m open to collaborating on data-driven projects and innovative problem-solving initiatives.  
+- 📫 Reach me at: kvishnu812@gmail.com | www.linkedin.com/in/vishnu-kalgi-897051213.
