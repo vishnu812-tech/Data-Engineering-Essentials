@@ -31,13 +31,19 @@ class linkedlist:
 
     def endinsert(self, val):
         node = createnode(val)
+        if self.head == None:
+            self.head = node
+            return
         itr = self.head
         while itr.next:
             itr = itr.next
         itr.next = node
 
-    def traverselist(self): ####### to traverse the linked list
+    def insertlist(self,lst):
+        for value in lst:
+            self.endinsert(value)
 
+    def traverselist(self): ####### to traverse the linked list
         if self.head is None:
             print(f"linked list is empty")
             return
@@ -52,6 +58,9 @@ class linkedlist:
 if __name__ == '__main__':
     ### create a class object as and when required from the defined classes ###
     print("Python Dsa")
+    ll = linkedlist()
+    ll.insertlist([1,2,3,4,5])
+    ll.traverselist()
 
 
 
