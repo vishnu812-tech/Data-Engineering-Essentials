@@ -279,12 +279,79 @@ class binarysearch:
         return self.rbsrch(key,l, r)
 
 
+###########  GRAPHS #############
+### WE USE DICTIONARIES FOR GRAPHS
+class graph:
+    def __init__(self,edges):
+        self.edges = edges
+        self.paths = defaultdict(list)
+        for i,j in edges:
+            self.paths[i].append(j)
+
+    def bfs(self,start): ######### BREADTH FIRST SEARCH
+        visited = set()
+        que = deque()
+        que.append(start)
+        while que:
+            itr = que.popleft()
+            if itr not in visited:
+                print(f"{itr}", end=' -> ')
+                visited.add(itr)
+                for path in self.paths[itr]:
+                        que.append(path)
+
+    def dfs(self,start):
+        visited = set()
+        stck = []
+        stck.append(start)
+        while stck:
+            popped = stck.pop()
+            if popped not in visited:
+                print(f"{popped}", end = ' -> ')
+                visited.add(popped)
+                for path in self.paths[popped]:
+                    stck.append(path)
+
+
+
+    def rdfs(self,start, visited = set()): ######### RECURSIVE ###########
+
+        if start not in visited:
+            print(f"{start}",end = ' -> ')
+            visited.add(start)
+            for path in self.paths[start]:
+                self.rdfs(path,visited)
+
+    def allpaths(self,source,destination, res = []):
+
+            res = res + [source]
+
+            if source == destination :
+                return [res]
+
+            if source not in self.paths:
+                return []
+
+            allpath = []
+            for itr in self.paths[source]:
+                if itr not in res:
+                    new_path = self.allpaths(itr,destination,res)
+                    for p in new_path:
+                        allpath.append(p)
+            return allpath
+                
+
+
 
 if __name__ == '__main__':
     ### create a class object as and when required from the defined classes ###
     print("Python Dsa")
-
-    bs = binarysearch([1,2,3,4,5,6,7,8])
-    print(bs.bsrch(7))
-    print(bs.rbsrch(9,0,8))
-
+    routes = [
+        ("A", "B"),
+        ("A", "C"),
+        ("B", "D"),
+        ("C", "D"),
+        ("D", "E")
+    ]
+    gph = graph(routes)
+    print(gph.allpaths('A','E'))
