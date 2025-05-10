@@ -2,6 +2,9 @@ from collections import deque ## for queue
 from collections import defaultdict
 from collections.abc import Reversible
 from queue import Queue, LifoQueue, SimpleQueue, PriorityQueue
+
+
+
 ### LISTS ###
  # 1.  Lists are nothing but dynamic arrays
 class arrays :
@@ -17,6 +20,8 @@ class arrays :
         print(f"values popped from array is {popped} and the modified array is {self.data}")
     def printdata(self):
         print(f"This is an array class and the data is : {self.data}")
+
+
 
 ### LINKED LISTS ###
 
@@ -59,6 +64,7 @@ class linkedlist:
 
 
 ######### STACK ###########
+
 class stack:
     def __init__(self):
         self.stk = []
@@ -76,6 +82,7 @@ class stack:
 
 
 ######### QUEUE ############
+
 class Queues:  ###### need to  import deque from collections
     def __init__(self):
         self.que = deque()
@@ -91,7 +98,10 @@ class Queues:  ###### need to  import deque from collections
         popped = self.que.popleft()
         print(f"after popping {popped} the queue is {self.que}")
 
+
+
 ########## PRIORITY QUEUE #############
+
 #### PQ works on tuples so insert the elements in tuples
 class priorityque(PriorityQueue): ###### import PriorityQueue from queue
     def __init__(self,reverse = False):
@@ -112,15 +122,169 @@ class priorityque(PriorityQueue): ###### import PriorityQueue from queue
                 else:
                     print(f"{priority},{val}")
 
+
+########## TREES ############
+
+class generaltree:
+    def __init__(self,name):
+        self.name = name
+        self.child = []
+        self.parent = None
+
+    def addchild(self,name):
+        name.parent = self
+        self.child.append(name)
+
+    def treelevel(self):
+        count = 0
+        itr = self
+        while itr.parent is not None:
+            itr = itr.parent
+            count += 1
+
+        return count
+
+    def printtree(self):
+        stk = []
+        stk.append(self)
+        while len(stk) > 0:
+            itr = stk.pop()
+            print(itr.name)
+            for i in itr.child:
+                stk.append(i)
+
+    def printtreestack(self):
+
+        if self is not None:
+            print('    ' * 3 * self.treelevel() + self.name )
+            for i in self.child:
+                i.printtreestack()
+
+
+######### BINARY TREES ############
+
+class binarytrees:
+
+    def __init__(self,data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    def addchild(self,val):
+
+        if val > self.data :
+            if self.right is None:
+                self.right = binarytrees(val)
+            else:
+                self.right.addchild(val)
+        else:
+            if self.left is None:
+                self.left = binarytrees(val)
+            else:
+                self.left.addchild(val)
+
+    def preorder(self):
+
+        print(self.data)
+        if self.left:
+            self.left.preorder()
+
+        if self.right:
+            self.right.preorder()
+
+    def inorder(self):
+
+        if self.left:
+            self.left.inorder()
+        print(self.data)
+        if self.right:
+            self.right.inorder()
+
+    def postorder(self):
+
+        if self.left:
+            self.left.postorder()
+
+        if self.right:
+            self.right.postorder()
+        print(self.data)
+
+    def min_val(self):
+        if self.left:
+            return self.left.min_val()
+        return self.data
+
+    def max_val(self):
+        if self.right is None:
+            return self.data
+        return self.right.max_val()
+
+    def delete_node(self,val):
+        if val < self.data:
+            if self.left:
+                  self.left = self.left.delete_node(val)
+
+        elif val > self.data:
+            if self.right:
+                 self.right = self.right.delete_node(val)
+        else:
+            if self.left is None and self.right is None:
+                return None
+            if self.right is None:
+                return self.left
+            if self.left is None:
+                return self.right
+
+            mins = self.right.min_val()
+            self.data = mins
+            self.right = self.right.delete_node(mins)
+        return self
+
+
+######## BINARY SEARCH #########
+
+class binarysearch:
+
+    def __init__(self,data):
+        self.data = data
+
+    def bsrch(self,key):
+
+        l = 0
+        r = len(self.data) - 1
+        mid = 0
+        while(l <= r):
+            mid = (l + r) // 2
+            if self.data[mid] == key:
+                return mid
+            elif key < self.data[mid]:
+                r = mid - 1
+            else:
+                l = mid + 1
+
+    def rbsrch(self,key,l,r):  ### recursive binary search
+
+        mid = (l + r) // 2
+        if l > r or mid >= len(self.data) or mid < 0:
+            return -1
+
+
+        if self.data[mid] == key:
+            return mid
+        elif key < self.data[mid]:
+            r = mid - 1
+        else:
+            l = mid + 1
+
+        return self.rbsrch(key,l, r)
+
+
+
 if __name__ == '__main__':
     ### create a class object as and when required from the defined classes ###
     print("Python Dsa")
-    pqs = priorityque(reverse=False)
-    pqs.put(5,"test")
-    pqs.put(4, "test")
-    pqs.put(6, "test")
-    pqs.put(2, "test")
-    pqs.printpq()
 
-
+    bs = binarysearch([1,2,3,4,5,6,7,8])
+    print(bs.bsrch(7))
+    print(bs.rbsrch(9,0,8))
 
